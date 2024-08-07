@@ -9,10 +9,8 @@ import '../cubits/add_note_cubit/cubit/add_note_cubit.dart';
 class AddNoteForm extends StatefulWidget {
   const AddNoteForm({
     super.key,
-    required this.isEdit,
   });
 
-  final bool isEdit;
 
   @override
   State<AddNoteForm> createState() => _AddNoteFormState();
@@ -51,9 +49,7 @@ class _AddNoteFormState extends State<AddNoteForm> {
           const SizedBox(
             height: 30,
           ),
-          widget.isEdit
-              ? Container()
-              : BlocBuilder<AddNoteCubit, AddNoteState>(
+            BlocBuilder<AddNoteCubit, AddNoteState>(
                   builder: (context, state) {
                     return CustomButton(
                       isLoading: state is AddNoteLoading ? true: false,

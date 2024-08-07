@@ -17,7 +17,7 @@ class EditNotesViewBody extends StatelessWidget {
           title: "Edit Note",
           icon: Icons.check,
         ),
-        CustomModalSheet(isEdit: true,),
+        CustomModalSheet(),
       ],
     );
   }
