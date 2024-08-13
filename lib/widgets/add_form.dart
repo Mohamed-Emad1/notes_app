@@ -61,10 +61,21 @@ class _AddNoteFormState extends State<AddNoteForm> {
                         title: title!,
                         content: subTitle!,
                         date: DateTime.now().toString(),
-                        color: Colors.blue.value);
+                        color: Colors.redAccent.value);
                     BlocProvider.of<AddNoteCubit>(context).addNote(noteModel);
+                                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      content: Text(
+                        "Note Added",
+                        style: Theme.of(context).textTheme.bodyLarge,
+                      ),
+                      backgroundColor:const Color(0xFF13E2DB),
+                    ));
+
                   } else {
                     autoValidateMode = AutovalidateMode.always;
+                    setState(() {
+                      
+                    });
                   }
                 },
               );
