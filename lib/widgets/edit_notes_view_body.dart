@@ -1,24 +1,63 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:notes_app/cubits/notes_cubit/notes_cubit.dart';
+import 'package:notes_app/models/notes_model.dart';
 import 'package:notes_app/widgets/custom_appbar.dart';
-import 'package:notes_app/widgets/custom_modal_sheet.dart';
+import 'package:notes_app/widgets/cutom_text_field.dart';
 
-class EditNotesViewBody extends StatelessWidget {
-  const EditNotesViewBody({super.key});
+class EditNotesViewBody extends StatefulWidget {
+  const EditNotesViewBody({super.key, required this.note});
+
+  final NotesModel note;
 
   @override
-  Widget build(BuildContext context) {
+  State<EditNotesViewBody> createState() => _EditNotesViewBodyState();
+}
 
-    return const Column(
-      children: [
-        SizedBox(
-          height: 55,
-        ),
-        CustomAppBar(
-          title: "Edit Note",
-          icon: Icons.check,
-        ),
-        CustomModalSheet(),
-      ],
+class _EditNotesViewBodyState extends State<EditNotesViewBody> {
+  String? title, content;
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 24),
+      child: Column(
+        children: [
+          const SizedBox(
+            height: 55,
+          ),
+          CustomAppBar(
+            onPressed: () {
+              widget.note.title = title ?? widget.note.title;
+              widget.note.content = content ?? widget.note.content;
+              widget.note.save();
+              BlocProvider.of<NotesCubit>(context).fetchAllNotes();
+              Navigator.pop(context);
+            },
+            title: "Edit Note",
+            icon: Icons.check,
+          ),
+          const SizedBox(
+            height: 55,
+          ),
+          CustomTextField(
+            hint: widget.note.title + " (add new title)",
+            onChanged: (value) {
+              title = value;
+            },
+          ),
+          const SizedBox(
+            height: 16,
+          ),
+          CustomTextField(
+            hint: widget.note.title + " (add new content)",
+            onChanged: (value) {
+              content = value;
+            },
+            maxLines: 5,
+          )
+        ],
+      ),
     );
   }
 }
