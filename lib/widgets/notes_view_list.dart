@@ -7,7 +7,6 @@ import 'package:notes_app/widgets/notes_item.dart';
 class NotesListView extends StatelessWidget {
   const NotesListView({super.key});
 
-  final colors = const [Colors.green, Colors.blue, Colors.yellow];
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<NotesCubit, NotesState>(
@@ -24,7 +23,6 @@ class NotesListView extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(vertical: 8),
                   child: NoteItem(
                     noteModel: notes[index],
-                    noteColor: colors[index % 3],
                   ),
                 );
               }),
