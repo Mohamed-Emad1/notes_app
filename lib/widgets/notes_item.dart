@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:intl/intl.dart';
+import 'package:notes_app/models/notes_model.dart';
 import 'package:notes_app/views/edit_views.dart';
 
 class NoteItem extends StatelessWidget {
-  const NoteItem({super.key, required this.noteColor});
+  const NoteItem({super.key, required this.noteColor, required this.noteModel});
 
   final Color noteColor;
+  final  NotesModel noteModel;
   @override
   Widget build(BuildContext context) {
+    DateFormat dateFormat = DateFormat("yyyy-MM-dd");
+    DateTime dateTime = dateFormat.parse(noteModel.date); //convert string to DateTime
     return GestureDetector(
       onTap: () {
         Navigator.push(context, MaterialPageRoute(builder: (context) {
@@ -27,9 +32,9 @@ class NoteItem extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               ListTile(
-                title: const Text(
-                  "Flutter Tips",
-                  style: TextStyle(
+                title: Text(
+                  noteModel.title,
+                  style:const TextStyle(
                       fontSize: 30,
                       fontWeight: FontWeight.bold,
                       color: Colors.black),
@@ -37,7 +42,7 @@ class NoteItem extends StatelessWidget {
                 subtitle: Padding(
                   padding: const EdgeInsets.only(top: 12),
                   child: Text(
-                    "Build Your Career with Flutter",
+                    noteModel.content,
                     style: TextStyle(
                       fontSize: 17,
                       color: Colors.black.withOpacity(0.5),
@@ -56,7 +61,7 @@ class NoteItem extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(right: 24),
                 child: Text(
-                  "21 May 2023",
+                  dateFormat.format(dateTime),
                   style: TextStyle(
                     color: Colors.black.withOpacity(0.5),
                     fontSize: 12,
